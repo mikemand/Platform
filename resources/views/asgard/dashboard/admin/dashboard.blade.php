@@ -7,7 +7,6 @@
 @stop
 
 @section('styles')
-
 @stop
 
 @section('content')

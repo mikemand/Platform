@@ -47,12 +47,6 @@
                     return undefined;
                 },
             },
-            instanceReadyCallback: {
-                type: Function,
-                default: () => {
-                    this.editorData = this.value;
-                },
-            },
             readOnlyMode: {
                 type: Boolean,
                 default: () => false,
