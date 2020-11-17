@@ -2,13 +2,9 @@
 
 namespace App\Exceptions;
 
-use Throwable;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -32,52 +28,18 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Throwable  $exception
      * @return void
      */
-    public function report(Throwable $exception)
+    public function register()
     {
-        parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof ValidationException) {
-            return parent::render($request, $exception);
-        }
-
-        if ($exception instanceof TokenMismatchException) {
-            return redirect()->back()
-                ->withInput($request->except('password'))
-                ->withErrors(trans('core::core.error token mismatch'));
-        }
-
-        if (config('app.debug') === false) {
-            return $this->handleExceptions($exception);
-        }
-
-        return parent::render($request, $exception);
-    }
-
-    private function handleExceptions($exception)
-    {
-        if ($exception instanceof ModelNotFoundException) {
-            return response()->view('errors.404', [], 404);
-        }
-
-        if ($exception instanceof NotFoundHttpException) {
-            return response()->view('errors.404', [], 404);
-        }
-
-        return response()->view('errors.500', [], 500);
+        $this->reportable(function (Throwable $e) {
+            if ($exception instanceof TokenMismatchException) {
+                return redirect()->back()
+                    ->withInput(request()->except('password'))
+                    ->withErrors(trans('core::core.error token mismatch'));
+            }
+        });
     }
 }

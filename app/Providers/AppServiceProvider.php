@@ -2,12 +2,22 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
     /**
      * Bootstrap any application services.
      *
@@ -21,15 +31,5 @@ class AppServiceProvider extends ServiceProvider
         Carbon::serializeUsing(function (Carbon $carbon) {
             return $carbon->format('d/m/y H:i:s');
         });
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

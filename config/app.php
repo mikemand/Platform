@@ -12,16 +12,8 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-    'name' => env('APP_NAME', 'My Application'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application cache
-    |--------------------------------------------------------------------------
-    | Set this to true to use the cache decorators, this will greatly improve
-    | the application speed and performance
-    */
-    'cache' => env('APP_CACHE', false),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     'debug_blacklist' => [
         '_ENV' => [
@@ -92,6 +84,8 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -223,7 +217,7 @@ return [
         Modules\Core\Providers\AsgardServiceProvider::class,
 
         App\Providers\RouteServiceProvider::class,
-        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class
+        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
 
     ],
 
